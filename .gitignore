@@ -10,3 +10,8 @@ __pycache__/*
 
 # .env
 .env
+
+# ignore other things
+reset-db.bat
+tsconfig.json
+.DS_Store
