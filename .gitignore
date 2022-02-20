@@ -1,0 +1,12 @@
+# Ignore developer environments
+/.venv/*
+/.vscode/*
+
+# Ignore databases
+*.sqlite
+
+# Ignore python internals
+__pycache__/*
+
+# .env
+.env

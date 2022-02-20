@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block extrascripts %}
+<script src="{{ url_for('static', filename='post/getreplies.js') }}"></script>
+{% endblock %}
+
+{% block header %}
+<h1>{% block title %}{{ post["title"] }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<span>By: <a href="{{ url_for('user.view', userid=post['authorid']) }}">{{ post["author"] }}</a></span>
+<br>
+<span>Posted on: {{ post["timestamp"] }}</span>
+<p>{{ post["content"] }}</p>
+<div class="comments-section" id="api-endpoint-carrier" postfetchreplies="{{ url_for('post.fetchreplies', commentid=0) }}" userview="{{ url_for('user.view', userid=0) }}">
+    <h3>Comments Section</h3>
+    <form method="POST" action="{{ url_for('post.comment', postid=post['id']) }}">
+        <textarea id="content1" name="content" required placeholder="Comment your thoughts..." cols="50" rows="5"></textarea>
+        <br>
+        <input type="submit" value="Comment!">
+    </form>
+    <ul class="comments">
+        {% for comment in post["comments"].user %}
+        <li>
+            <details>
+                <summary id="comment-{{ comment['id'] }}"><b>{{ comment["content"] }}</b> <a href="{{ url_for('user.view', userid=g.user['id']) }}">{{ g.user["username"] }}</a></summary>
+                <span>
+                    Posted on {{ comment["timestamp"] }}
+                    <form method="POST" action="{{ url_for('post.replycomment', commentid=comment['id']) }}">
+                        <textarea name="content"></textarea>
+                        <br>
+                        <input type="submit" value="Reply!">
+                    </form>
+                    <details>
+                        <summary><u>View replies</u></summary>
+                        <ul id="comment-{{ comment['id'] }}-replies"></ul>
+                    </details>
+                    <br>
+                </span>
+            </details>
+        </li>
+        {% endfor %}
+
+        {% for comment in post["comments"].other %}
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
