@@ -1,7 +1,3 @@
-# Ignore developer environments
-/.venv/*
-/.vscode/*
-
 # Ignore databases
 *.sqlite
 
@@ -12,6 +8,4 @@ __pycache__/*
 .env
 
 # ignore other things
-reset-db.bat
-tsconfig.json
 .DS_Store
