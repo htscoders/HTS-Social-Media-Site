@@ -1,3 +1,29 @@
+:root {
+    --back-primary: #002d56;
+    --back-secondary: #005288;
+    --unused-primary:#717073;
+    --text-primary: #d59f0f;
+    --unused-secondary: #b30838;
+    
+}
+
 .flash-content {
     color: red;
+}
+
+header {
+    background: var(--back-primary);
+}
+
+header a {
+    color: var(--text-primary);
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav a {
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--text-primary);
 }

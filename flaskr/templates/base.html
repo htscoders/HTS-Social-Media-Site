@@ -5,23 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %} - HTS</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mdb-3.11.0/css/mdb.min.css') }}">
     {% block extrascripts %}{% endblock %}
 </head>
 <body>
-    <h1><b><i><a href="{{ url_for('index') }}">yes</a></i></b></h1>
-    <nav>
-        <ul>
+    <header class="d-flex align-items-end gap-5 p-2">
+        <a class="display-4" href="{{ url_for('index') }}">HTS</a>
+        <nav class="d-flex gap-4 mb-2">
             {% if g.user %}
-            <li><span>Logged in as <a href="{{ url_for('user.view', userid=g.user['id']) }}">{{ g.user["username"] }}</a></span></li>
-            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-            <li><a href="{{ url_for('post.create') }}">New Post</a></li>
+            <span>Logged in as <a href="{{ url_for('user.view', userid=g.user['id']) }}">{{ g.user["username"] }}</a></span>
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+            <a href="{{ url_for('post.create') }}">New Post</a>
             {% else %}
-            <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+            <a href="{{ url_for('auth.register') }}">Register</a>
+            <a href="{{ url_for('auth.login') }}">Login</a>
             {% endif %}
-        </ul>
-    </nav>
-    <section id="content">
+        </nav>
+    </header>
+    <main id="content">
         {% block header %}{% endblock %}
         <div>
             {% for msg in get_flashed_messages() %}
@@ -31,6 +32,7 @@
             {% endfor %}
         </div>
         {% block content %}{% endblock %}
-    </section>
+    </main>
+    <script href="{{ url_for('static', filename='mdb-3.11.0/js/mdb.min.js') }}"></script>
 </body>
 </html>
