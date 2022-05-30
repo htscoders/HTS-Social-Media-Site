@@ -19,6 +19,20 @@ header a {
     color: var(--text-primary);
 }
 
+header .logo-image {
+    transition: transform 0.1s;
+    width: 50px;
+    height: 50px;
+}
+
+header .logo-image:hover {
+    transform: scale(1.1);
+}
+
+nav {
+    font-size: 22px;
+}
+
 nav ul {
     list-style: none;
 }
@@ -26,4 +40,8 @@ nav ul {
 nav a {
     color: var(--text-primary);
     border-bottom: 2px solid var(--text-primary);
+}
+
+nav .user-dropdown-icon {
+    color: var(--text-primary);
 }

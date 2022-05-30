@@ -1,11 +1,5 @@
-# Ignore databases
-*.sqlite
-
 # Ignore python internals
 __pycache__/*
-
-# .env
-.env
 
 # ignore other things
 .DS_Store

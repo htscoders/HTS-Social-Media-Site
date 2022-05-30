@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 
-{% block header %}
-<h1>Direct Message<br>{% block title %}{{ recipient["username"] }}{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
 <span>Account created on {{ recipient["timestamp"] }}</span>
 

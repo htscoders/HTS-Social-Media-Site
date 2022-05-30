@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 
-{% block header %}
-<h1>Account Page<br>{% block title %}{{ user["username"] }}{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
 <span>Account created on {{ user["timestamp"] }}</span>
 <h2>Posts made by this user</h2>
