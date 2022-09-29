@@ -7,6 +7,7 @@ CREATE TABLE user (
     id          INTEGER CHECK(id > 0),
     username    TEXT    UNIQUE NOT NULL,
     password    TEXT    NOT NULL CHECK(length(password) >= 8),
+    views       INTEGER DEFAULT 0 NOT NULL,
     timestamp  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(id)
 );
@@ -16,6 +17,7 @@ CREATE TABLE post (
     authorid    INTEGER NOT NULL,
     title       TEXT    NOT NULL,
     content     TEXT    NOT NULL,
+    views       INTEGER DEFAULT 0 NOT NULL,
     timestamp  DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(authorid) REFERENCES user(id)

@@ -12,8 +12,8 @@ let apiURL: string = "/";
 let userViewURL: string = "/";
 
 window.addEventListener("load", function() {
-    apiURL = (document.getElementById("api-endpoint-carrier") as HTMLDivElement).getAttribute("postfetchreplies") as string;
-    userViewURL = (document.getElementById("api-endpoint-carrier") as HTMLDivElement).getAttribute("userview") as string;
+    apiURL = (document.getElementById("api-endpoint-carrier") as HTMLDivElement).dataset?.["postfetchreplies"] as string;
+    userViewURL = (document.getElementById("api-endpoint-carrier") as HTMLDivElement).dataset?.["userview"] as string;
 
     window.addEventListener("click", function(e) {
         if (e.target instanceof HTMLElement) {

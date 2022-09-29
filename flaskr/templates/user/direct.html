@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<span>Account created on {{ recipient["timestamp"] }}</span>
+    <span>Account created on {{ recipient["timestamp"] }}</span>
 
-<h2>Direct Messages</h2>
-<ul>
-    {% for directmessage in directmessages %}
-    <li>
-        <a href="{{ url_for('user.view', userid=directmessage['authorid']) }}">{{ directmessage["author"] }}:</a>
-        <b>{{ directmessage["content"] }}</b>
-        <span>on {{ directmessage["timestamp"] }}</span>
-    </li>
-    {% endfor %}
-</ul>
+    <h2>Direct Messages</h2>
+    <ul>
+        {% for directmessage in directmessages %}
+        <li>
+            <a href="{{ url_for('user.view', userid=directmessage['authorid']) }}">{{ directmessage["author"] }}:</a>
+            <b>{{ directmessage["content"] }}</b>
+            <span>on {{ directmessage["timestamp"] }}</span>
+        </li>
+        {% endfor %}
+    </ul>
 
-<form method="POST" action="{{ url_for('dm.send', recipientid=recipient['id']) }}">
-    <label for="content">Message: </label>
-    <input name="content" id="content" placeholder="Message..." type="text" required>
-    <br>
-    <input type="submit" value="Send!">
-</form>
+    <form method="POST" action="{{ url_for('dm.send', recipientid=recipient['id']) }}">
+        <label for="content">Message: </label>
+        <input name="content" id="content" placeholder="Message..." type="text" required>
+        <br>
+        <input type="submit" value="Send!">
+    </form>
 {% endblock %}

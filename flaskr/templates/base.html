@@ -7,7 +7,7 @@
     <title>{% block title %} {% endblock %} - HTS</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='mdb-3.11.0/css/mdb.min.css') }}">
-    {% block extrascripts %}{% endblock %}
+    {% block scripts %}{% endblock %}
 </head>
 
 <body>
@@ -19,24 +19,23 @@
         </div>
         <nav class="d-flex gap-4 mb-2">
             {% if g.user %}
-
-            <div class="btn-group shadow-0">
-                <a href="{{ url_for('user.view', userid=g.user['id']) }}">{{ g.user["username"] }}</a>
-                <div type="button" class="user-dropdown-icon dropdown-toggle dropdown-toggle-split d-flex align-items-center" id="user-dropdown" data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-reference="parent">
-                    <span class="visually-hidden"></span>
+                <div class="btn-group shadow-0">
+                    <a href="{{ url_for('user.view', userid=g.user['id']) }}">{{ g.user["username"] }}</a>
+                    <div type="button" class="user-dropdown-icon dropdown-toggle dropdown-toggle-split d-flex align-items-center" id="user-dropdown" data-mdb-toggle="dropdown" aria-expanded="false" data-mdb-reference="parent">
+                        <span class="visually-hidden"></span>
+                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="user-dropdown">
+                        <li><a class="dropdown-item" href="#">User Settings</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li><a class="dropdown-item"d href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    </ul>
                 </div>
-                <ul class="dropdown-menu" aria-labelledby="user-dropdown">
-                    <li><a class="dropdown-item" href="#">User Settings</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item"d href="{{ url_for('auth.logout') }}">Logout</a></li>
-                </ul>
-            </div>
-            <a href="{{ url_for('post.create') }}">New Post</a>
+                <a href="{{ url_for('post.create') }}">New Post</a>
             {% else %}
-            <a href="{{ url_for('auth.register') }}">Register</a>
-            <a href="{{ url_for('auth.login') }}">Login</a>
+                <a href="{{ url_for('auth.register') }}">Register</a>
+                <a href="{{ url_for('auth.login') }}">Login</a>
             {% endif %}
         </nav>
     </header>
@@ -48,8 +47,9 @@
             </div>
             {% endfor %}
         </div>
-        {% block content %}
-        {% endblock %}
+        <div class="body">
+            {% block content %}{% endblock %}
+        </div>
     </main>
     <script src="{{ url_for('static', filename='mdb-3.11.0/js/mdb.min.js') }}"></script>
 </body>

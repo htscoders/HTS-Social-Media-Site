@@ -2,8 +2,9 @@
 let apiURL = "/";
 let userViewURL = "/";
 window.addEventListener("load", function () {
-    apiURL = document.getElementById("api-endpoint-carrier").getAttribute("postfetchreplies");
-    userViewURL = document.getElementById("api-endpoint-carrier").getAttribute("userview");
+    var _a, _b;
+    apiURL = (_a = document.getElementById("api-endpoint-carrier").dataset) === null || _a === void 0 ? void 0 : _a["postfetchreplies"];
+    userViewURL = (_b = document.getElementById("api-endpoint-carrier").dataset) === null || _b === void 0 ? void 0 : _b["userview"];
     window.addEventListener("click", function (e) {
         if (e.target instanceof HTMLElement) {
             if (e.target.parentElement) {

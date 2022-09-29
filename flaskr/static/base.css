@@ -3,6 +3,7 @@
     --back-secondary: #005288;
     --unused-primary:#717073;
     --text-primary: #d59f0f;
+    --text-primary-light: #eeb821;
     --unused-secondary: #b30838;
     
 }
@@ -13,10 +14,7 @@
 
 header {
     background: var(--back-primary);
-}
-
-header a {
-    color: var(--text-primary);
+    margin-bottom: 100px;
 }
 
 header .logo-image {
@@ -40,6 +38,12 @@ nav ul {
 nav a {
     color: var(--text-primary);
     border-bottom: 2px solid var(--text-primary);
+    transition: border-bottom 0.1s;
+}
+
+nav a:hover {
+    color: var(--text-primary-light);
+    border-bottom: 1px solid var(--text-primary);
 }
 
 nav .user-dropdown-icon {

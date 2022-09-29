@@ -24,10 +24,12 @@ def view(recipientid):
             "username": recipient_user["username"],
             "timestamp": recipient_user["timestamp"]
         }
+
         directmessages = db.execute(
             "SELECT * FROM directmessage WHERE (authorid = ? AND recipientid = ?) OR (authorid = ? AND recipientid = ?)",
             (authorid, recipientid, recipientid, authorid)
         ).fetchall()
+        
         directmessages = [{
             "content": directmessage["content"],
             "author": db.execute("SELECT username FROM user WHERE id = ?", (directmessage["authorid"],)).fetchone()["username"],
@@ -37,6 +39,7 @@ def view(recipientid):
             "replyingid": directmessage["replyingid"],
             "timestamp": directmessage["timestamp"]
         } for directmessage in directmessages]
+        
         return render_template("user/direct.html", recipient=recipient, directmessages=directmessages)
     flash(error)
     return redirect(url_for("index"))

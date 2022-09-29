@@ -1,13 +1,16 @@
+import datetime
 import json
+import time
 from math import floor
-import time, datetime
-from flask import Blueprint, Response, render_template, request, redirect, session, url_for, flash
 
-from flaskr.auth import require_login;
+from flask import (Blueprint, Response, flash, redirect, render_template,
+                   request, session, url_for)
+
+from flaskr.auth import require_login
 from flaskr.database import get_database, sanitizeHTML
 
 blueprint = Blueprint("post", __name__, url_prefix="/p")
-    
+
 @blueprint.route("/create", methods=("GET", "POST"))
 @require_login
 def create():
@@ -41,7 +44,9 @@ def create():
                 "SELECT id FROM post WHERE authorid = ? AND title = ?",
                 (author, title)
             ).fetchone()
+
             session["last_post_timestamp"] = time.time()
+            
             return redirect(url_for("post.view", postid=postid["id"]))
         flash(error)
     return render_template("post/create.html")
@@ -119,6 +124,7 @@ def view(postid):
     user_id = session.get("user_id")
     db = get_database()
     post = db.execute("SELECT * FROM post WHERE id = ?", (postid,)).fetchone()
+    
     user_comments = [{
         "content": comment["content"],
         "timestamp": comment["timestamp"],
@@ -132,10 +138,13 @@ def view(postid):
         "id": comment["id"],
         "author": db.execute("SELECT username FROM user WHERE id = ?", (comment["authorid"],)).fetchone()["username"]
     } for comment in db.execute("SELECT content,authorid,timestamp,id FROM comment WHERE postid = ? AND authorid != ? AND replyingid IS NULL ORDER BY id DESC", (postid, user_id,)).fetchall()]
+    
     if post is None:
         flash("That post does not exist.")
         return redirect(url_for("index"))
+    
     authorName = db.execute("SELECT username FROM user WHERE id = ?", (post["authorid"],)).fetchone()
+
     return render_template("post/view.html", post={
         "id": post["id"],
         "authorid": post["authorid"],
@@ -148,3 +157,35 @@ def view(postid):
             "other": other_comments
         }
     })
+
+@blueprint.route("/api/post", methods=("POST",))
+@require_login
+def api():
+    data = request.get_json("filter_by", force=True)
+
+    data["filter"] = data["filter"] or "popular"
+
+    if data["filter"] == "popular":
+        pass
+    elif data["filter"] == "newest":
+        pass
+    return
+
+@blueprint.route("/api/comment", methods=("POST",))
+@require_login
+def api():
+    data = request.get_json(force=True)
+    
+    post_id = data["post_id"]
+
+    if post_id:
+        data["filter"] = data["filter"] or "popular"
+
+        if data["filter"] == "popular":
+            pass
+        elif data["filter"] == "newest":
+            pass
+    else:
+        pass
+
+    return
